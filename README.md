@@ -1,3 +1,4 @@
+*모든 링크는 chrome 최신 브라우져에서 정확하게 확인 하실 수 있습니다. 
 
 ### 와이어프레임 설날 과제
 [css연습1] (https://jiwoo-back.github.io/newyear_project/Page1.html) </br>
@@ -16,4 +17,4 @@
 [link] (https://front.mozzi.co.kr/) </br>
 
 
-*chrome 최신 브라우져에서 정확하게 확인 하실 수 있습니다. 
+
