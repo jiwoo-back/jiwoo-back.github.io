@@ -321,6 +321,11 @@ border-radius: 2px;
 height: 31vh;
 resize: none;
 padding: 5px;
+/*white-space: normal;
+word-wrap: break-word;
+background-color: rgb(13, 252, 203);
+overflow: auto;*/
+
 }
 
 
@@ -393,10 +398,16 @@ padding: 5px;
   position: absolute;
   bottom: 30px;
   left: 30px;
-  font-size: 15px
+
+  font-size: 15px;
+  color: #fff;
+  filter: drop-shadow(8px 8px 10px yellow);
+
+
 }
 .list-content-li{
   overflow: hidden;
+
 }
 
 .list-content:hover{
@@ -426,6 +437,9 @@ padding: 5px;
   white-space: nowrap;
   word-wrap: normal;
   overflow: hidden;
+  font-size: 29px;
+  color: #fff;
+  filter: drop-shadow(8px 8px 10px yellow);
 }
 /*------------------------------------------*/
 .view-list-wrap{
@@ -471,6 +485,7 @@ padding: 5px;
 }
 
 .file-upload-wrap{
+  overflow: hidden;
   background: #fff;
   height: 27vh;
   border: 1px solid #ECECEC;
@@ -588,6 +603,18 @@ padding: 5px;
    width: 100%;
  }
 
+ .days-rmv-btn{
+   background: silver;
+   padding: 5px 17px;
+   border-radius: 9px 9px 0 0;
+   bottom: 0;
+   right: 188px;
+   color: #fff;
+   display: inline-block;
+   position: absolute;
+   font-size: 12px;
+ }
+
  /*.days-letter::after{
    content: "";
    display: block;
@@ -610,8 +637,10 @@ padding: 5px;
  .days-span{
    /*background-color: rgb(251, 94, 78);*/
    position: relative;
-   line-height: 20px;
-   text-align: justify
+   line-height: 30px;
+   text-align: justify;
+   font-size: 15px;
+   color: gray;
  }
 
  .days-span::after{
@@ -620,8 +649,8 @@ padding: 5px;
    left: 0;
    display: block;
    /*background: rgb(22, 244, 238);*/
-   background: linear-gradient(to bottom, transparent 19px, black 19px);
-   background-size: 1px 20px;
+   background: linear-gradient(to bottom, transparent 29px, gray 29px);
+   background-size: 1px 30px;
    /*z-index: 99999*/
    content: "";
    height: 100%;
@@ -630,12 +659,18 @@ padding: 5px;
  }
 
 
+
 .upload-image{
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+
  width: 100%;
  margin: auto;
  display: block;
  margin-bottom: 10px;
- background: #309;
+ /*background: #309;*/
 }
 
 .upload-image-comment{
@@ -654,11 +689,6 @@ right: 0;
 color: #fff;
 display: inline-block;
 position: absolute;
-
-
-  /*transform: translate(-50%);*/
-
-
 }
 .rmv-btn:hover{
   background: black;
@@ -729,7 +759,7 @@ position: absolute;
     <!-- <div class="warpper"> -->
     <div class="add-story" :class="{'open': formOpen, 'off': !formOpen}">
       <!-- <div class="egg">gmlsek</div> -->
-      <div class="button-copy" v-show="!formOpen" @click="formOpen = true, viewwrite=true">click here</div>
+      <div class="button-copy" v-show="!formOpen" @click="formOpen = true, viewwrite=true, refreash()">click here</div>
 
       <form @submit="cancel">
 
@@ -742,50 +772,35 @@ position: absolute;
 
 
           <ul class="list-content-all" @click="listOpen = true"  v-show="viewlists">
-            <li class="list-content"  @click="viewOpen">
-              <strong class="list-content-titie">{{diaryData.title}}</strong>
-              <date class="list-content-date">2017-04-28</date>
-              <img src="imgs/salad.jpg" class="list-img" >
+            <li v-for = "(item, index) in history" class="list-content"  @click="viewOpen(item, index)">
+              <strong class="list-content-titie">{{item.title}}</strong>
+              <time class="list-content-date">{{item.date}}</time>
+              <img :src="item.img" class="list-img" >
             </li>
-            <li class="list-content"  @click="viewOpen">
-              <strong class="list-content-titie">{{diaryData.title}}</strong>
-              <date class="list-content-date">2017-04-28</date>
-              <img class="list-img" src="imgs/flower.jpg">
-            </li>
-            <li class="list-content"  @click="viewOpen">
-              <strong class="list-content-titie">{{diaryData.title}}</strong>
-              <date class="list-content-date">2017-04-28</date>
-              <img class="list-img" src="imgs/paris.jpeg">
-            </li>
-            <li class="list-content"  @click="viewOpen">
-              <strong class="list-content-titie">{{diaryData.title}}</strong>
-              <date class="list-content-date">2017-04-28</date>
-              <img class="list-img" src="imgs/path.jpeg">
-            </li>
+
           </ul>
 
 
         <div class="view-list" :class="{'open':viewOpen}"  v-show="viewitem" >
           <div class="view-list-wrap">
-            <h3 class="blind">제목</h3>
+            <h3 class="blind">리스트</h3>
            <div class="days">
 
             <ul class="days-ul">
-              <li class="days-list">2월</li>
-              <li class="days-list">2일</li>
-              <li class="days-list">2요일</li>
+              <li class="days-list">{{selecteditem.date}}</li>
             </ul>
             <div class="days-weather">날씨
-              <strong>{{weatherpicked}}</strong>
+              <strong>{{selecteditem.weatherpicked}}</strong>
             </div>
-            <div class="days-img-wrap"><img src="imgs/flower.jpg" alt="" class="days-img"></div>
+            <div class="days-img-wrap"><img :src="selecteditem.img" alt="" class="days-img"></div>
             <div class="days-letter">
-              <h3 class="days-title">{{diaryData.title}}</h3>
-              <p class="days-span">{{diaryData.diary}}</p>
+              <h3 class="days-title">{{selecteditem.title}}</h3>
+              <p class="days-span">{{selecteditem.diary}}</p>
             </div>
 
 
             </div>
+        <button class="days-rmv-btn" @click.stop="removeList(index)">일기 삭제</button>
 
           </div>
         </div>
@@ -799,23 +814,23 @@ position: absolute;
         <div class="weather-wrap">
           날씨:
         <label class="weather sunny">
-          <input type="radio" name="weather" v-bind="diaryData.weather" v-model="weatherpicked" value="맑음">
+          <input type="radio" name="weather" v-bind="diaryData.weather" v-model="diaryData.weatherpicked" value="맑음">
           <span></span>
         </label>
         <label class="weather sunnyandcloudy">
-          <input type="radio" name="weather" v-bind="diaryData.weather" v-model="weatherpicked" value="흐림">
+          <input type="radio" name="weather" v-bind="diaryData.weather" v-model="diaryData.weatherpicked" value="흐림">
           <span></span>
         </label>
         <label class="weather cloudy">
-          <input type="radio" name="weather" v-bind="diaryData.weather" v-model="weatherpicked" value="흐린뒤비">
+          <input type="radio" name="weather" v-bind="diaryData.weather" v-model="diaryData.weatherpicked" value="흐린뒤비">
           <span></span>
         </label>
         <label class="weather rainy">
-          <input type="radio" name="weather" v-bind="diaryData.weather" v-model="weatherpicked" value="비">
+          <input type="radio" name="weather" v-bind="diaryData.weather" v-model="diaryData.weatherpicked" value="비">
           <span></span>
         </label>
         <label class="weather snow">
-          <input type="radio" name="weather" v-bind="diaryData.weather" v-model="weatherpicked" value="눈">
+          <input type="radio" name="weather" v-bind="diaryData.weather" v-model="diaryData.weatherpicked" value="눈">
           <span></span>
         </label>
 
@@ -834,14 +849,19 @@ position: absolute;
 
           <div class="form--field">
           <label class="blind">내용</label>
-          <textarea class="form--element textarea" v-model="diaryData.diary" placeholder="일기를 작성해주세요" style="white-space: pre">
+
+          <textarea class="form--element textarea" v-model="diaryData.diary" placeholder="일기를 작성해주세요" style="word-break:break-all">
+
           </textarea>
         </div>
 
         <div  class="file-upload-wrap" @drop="drop(this.event)" @dragenter="dragenter" @dragover="dragover" >
           <!-- <input type="file" @change="onFileChange" class="upload-btn"> -->
-          <img v-if="image" class="upload-image" :src="image" >
-          <p class="upload-image-comment" placeholder="이미지를 드레그 해주세요"></p>
+          <!-- <div class="upload-image-wrapper"> -->
+
+            <img v-if="diaryData.img" class="upload-image" :src="diaryData.img" >
+          <!-- </div> -->
+          <p class="upload-image-comment" placeholder="이미지를 드레그 해주세요">이미지를 드레그 해주세요</p>
           <button class="rmv-btn" @click="removeImage">파일 삭제</button>
         </div>
 
@@ -851,7 +871,7 @@ position: absolute;
         <!-- </div> -->
 
         <!-- <input class="file-upload" type="file" multiple /> -->
-        <button type="submit" class="submit-button">save</button>
+        <button type="button" @click="submit" class="submit-button" >save</button>
     </div>
 
     <div v-show="formOpen" class="cancel" @click="cancel"><span >X</span></div>
@@ -891,14 +911,17 @@ var vue = new Vue({
     viewlists: false,
     // write: false,
 
-
     diaryData: {
       date: '',
       title: '',
-      weather: '',
+      weatherpicked: '',
       diary:'',
       img:''
-    }
+    },
+    history: [],
+    list:[],
+    selecteditem:[],
+    selectedindex: null,
   },
   methods: {
     cancel: function() {
@@ -906,6 +929,8 @@ var vue = new Vue({
       this.viewitem = false;
       this.viewlists = false;
       this.viewwrite = false;
+      // localStorage.clear();
+      this.refreash()
 
     },
     showlist(){
@@ -921,10 +946,14 @@ var vue = new Vue({
       this.viewwrite = true;
 
     },
-    viewOpen: function() {
+    viewOpen: function(item, index) {
       this.viewitem = true;
       this.viewlists = false;
+      // this.refreash()
+      this.iteminput(item, index);
       console.log("llllll")
+      console.log("index:",this.selectedindex)
+
     },
 
     dragenter(e){
@@ -947,18 +976,61 @@ var vue = new Vue({
       this.createImage(files[0]);
 
     },
+    submit(){
+      if(this.diaryData.date === "" || this.diaryData.title === "" || this.diaryData.diary === "" || this.diaryData.weatherpicked === "" ||  this.diaryData.img === "") {
+        alert("내용을 빠짐없이 입력해 주세요")
+        return
+      }
+      this.history = this.history.concat(JSON.parse(JSON.stringify(this.diaryData)))
+      localStorage.setItem('history', JSON.stringify(this.history))
+      console.log("JSON.parse(localStorage.getItem('history')):",JSON.parse(localStorage.getItem('history')))
+      this.diaryData.date = ""
+      this.diaryData.title = ""
+      this.diaryData.diary = ""
+      this.diaryData.weatherpicked = ""
+      this.diaryData.img = ""
+      this.refreash()
+      this.showlist()
 
-
-    onFileChange(e){
-      var files = e.target.files || e.dataTransfer.files;
-      console.log("onFileChange");
-      // console.log("e.dataTrnasfer.files:",e.dataTransfer.files)
-      console.log("e.target.files:",e.target.files)
-      if(!files.length)
-       return;
-       console.log("files.length:",files.length);
-       this.createImage(files[0]);
     },
+    refreash(){
+      if(JSON.parse(localStorage.getItem('history'))){
+        this.history = JSON.parse(localStorage.getItem('history'))
+      } else {
+        this.hitory = ""
+      }
+
+    },
+    storageClear(){
+      localStorage.clear()
+
+    },
+    iteminput(item, index){
+      this.selecteditem = item
+      this.selectedindex = index
+    },
+    removeList(index){
+      console.log("sss");
+      console.log("index:",this.selectedindex)
+      this.history.splice(this.selectedindex, 1)
+      localStorage.setItem('history', JSON.stringify(this.history))
+      this.refreash()
+      this.viewitem = false;
+      this.viewlists = true;
+      this.viewwrite = false;
+    },
+
+
+    // onFileChange(e){
+    //   var files = e.target.files || e.dataTransfer.files;
+    //   console.log("onFileChange");
+    //   // console.log("e.dataTrnasfer.files:",e.dataTransfer.files)
+    //   console.log("e.target.files:",e.target.files)
+    //   if(!files.length)
+    //    return;
+    //    console.log("files.length:",files.length);
+    //    this.createImage(files[0]);
+    // },
     createImage(file){
       // var image = new Image();
       // vm.image = e.target.result;
@@ -968,7 +1040,7 @@ var vue = new Vue({
       var reader = new FileReader();
       var vm = this;
       reader.onload = (e) => {
-        vm.image = e.target.result;
+        vm.diaryData.img = e.target.result;
       };
       reader.readAsDataURL(file);
     },
@@ -977,7 +1049,12 @@ var vue = new Vue({
 
     },
 
-  }
+
+  },
+  created(){
+    this.refreash()
+  },
+
 })
 
 
