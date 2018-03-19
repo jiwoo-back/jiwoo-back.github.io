@@ -7,9 +7,6 @@
 ### 협업 프로젝트 고리
 [유튜브 동영상] https://www.youtube.com/watch?v=hg5l5Sei7u0 </br>
 
-### 반응형 웹 연습
-[carin] https://jiwoo-back.github.io/carin/index.html
-
 ### 웹 접근성을 고려한 페이지 제작
 [css연습1] https://jiwoo-back.github.io/newyear_project/Page1.html </br>
 [css연습2] https://jiwoo-back.github.io/newyear_project/Page2.html </br>
