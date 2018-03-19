@@ -1,5 +1,4 @@
 *모든 링크는 chrome 최신 브라우져에서 정확하게 확인 하실 수 있습니다. </br>
-*최신작업순으로 업로드 하였습니다.
 
 ### 나의 사진일기 노른자Diary 
 [노른자Diary] https://jiwoo-back.github.io/diary/diary.html</br>
