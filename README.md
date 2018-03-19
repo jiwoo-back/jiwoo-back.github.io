@@ -6,7 +6,6 @@
 
 ### 협업 프로젝트 고리
 [유튜브 동영상] https://www.youtube.com/watch?v=hg5l5Sei7u0 </br>
-[link] https://front.mozzi.co.kr/ </br>
 
 ### 반응형 웹 연습
 [carin] https://jiwoo-back.github.io/carin/index.html
