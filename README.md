@@ -1,11 +1,5 @@
 *모든 링크는 chrome 최신 브라우져에서 정확하게 확인 하실 수 있습니다. </br>
 
-### 나의 사진일기 노른자Diary 
-[노른자Diary] https://jiwoo-back.github.io/diary/diary.html</br>
-*chrome 최신 브라우져 확인필수
-
-### 협업 프로젝트 고리
-[유튜브 동영상] https://www.youtube.com/watch?v=hg5l5Sei7u0 </br>
 
 ### 웹 접근성을 고려한 페이지 제작
 [css연습1] https://jiwoo-back.github.io/newyear_project/Page1.html </br>
